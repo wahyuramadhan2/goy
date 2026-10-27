@@ -1,0 +1,166 @@
+========== PROFILE SECTION ==========
+
+🔹.profile__greeting
+Hello I’m
+
+🔹.profile__name
+Nia Loren
+
+🔹.profile__button
+Information - Projects
+
+🔹.section__title
+Profile
+
+🔹.profile__description
+Creative strategist with an insatiable curiosity who merges design,
+culture, and brand psychology. I help startups project a bold image,
+connect with their audience, and create an unforgettable experience.
+I have over six years of experience building brand universes that
+capture attention and leave a lasting impression.
+
+
+========== SKILLS SECTION ==========
+
+🔹.section__title
+Skills
+
+🔹.skills__list
+Brand Identity Design
+Content Strategy.
+Social Media Campaigns.
+Copywriting.
+Figma, Canva, Adobe CC.
+Trend Forecasting.
+Motion Graphics (After Effects).
+Creative Direction.
+
+
+========== TOOLS & TECHNOLOGIES SECTION ==========
+
+🔹.section__title
+Tools & Technologies
+
+🔹.tools__name
+React
+JavaScript
+Git
+GitHub
+PostgreSQL
+Node Js
+Ilustrator
+Figma
+
+
+========== EXPERIENCE SECTION ==========
+
+🔹.section__title
+Experience
+
+🔹.experience__titles
+Remote / <br> 2021 - Present
+
+Brand Strategist / Freelance
+
+🔹.experience__list
+Crafted full brand identities for 15+ startups in skincare, wellness, and tech.
+Increased engagement by 300% on average via social-first strategy revamps.
+Collaborated with copywriters, motion designers, and dev teams for seamless rollouts.
+
+🔹.experience__titles
+NYC / <br> 2018 - 2021
+
+Creative Lead / Glitch Studio
+
+🔹.experience__list
+Crafted full brand identities for 15+ startups in skincare, wellness, and tech.
+Increased engagement by 300% on average via social-first strategy revamps.
+Collaborated with copywriters, motion designers, and dev teams for seamless rollouts.
+
+========== EDUCATION SECTION ==========
+
+🔹.section__title
+Education
+
+🔹.education__item
+Class of 2016
+Systems Engineering - University
+
+Class of 2022
+Web Programming - Programming school
+
+Class of 2024
+Usability (UX/UI) - Design school
+
+========== PROJECTS SECTION ==========
+
+🔹.section__title
+Jobs
+
+🔹.projects__name
+Modern Design Project
+
+
+🔹.projects__description
+Professional website for a company, using HTML, CSS, JavaScript,
+Gsap, Figma, Database and others.
+
+
+========== FOOTER ==========
+
+🔹.footer__link
+mailto:nia@mail.com
+[nia@mail.com](mailto:nia@mail.com)
+
+tel:(123) - 456-789
+(123) - 456-789
+
+https://linkedin.com/
+linkedin.com/niauser
+
+
+/*=============== TABS BUTTONS WITH SMOOTH ANIMATION ===============*/ 
+const tabs = document.querySelectorAll('[data-target]'),
+      tabContents = document.querySelectorAll('[data-content]')
+
+tabs.forEach((tab) => {
+   tab.addEventListener('click', () => {
+      const targetSelector = tab.dataset.target,
+            targetContent = document.querySelector(targetSelector),
+            currentContent = document.querySelector('[data-content].main-active')
+
+      // Avoid re-triggering if the same tab is clicked
+      if(targetContent === currentContent) return
+
+      // Switch active button
+      tabs.forEach((t) => t.classList.remove('main-active'))
+      tab.classList.add('main-active')
+
+      // Fade out current content
+      currentContent.classList.remove('show')
+
+      currentContent.addEventListener('transitionend', function handler(){
+         currentContent.classList.remove('main-active')
+         currentContent.removeEventListener('transitionend', handler)
+
+         // Fade in new content
+         targetContent.classList.add('main-active')
+
+         requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+               targetContent.classList.add('show')
+            })
+         })
+      }, { once: true })
+   })
+})
+
+/*=============== INITIAL FADE IN ON LOAD ===============*/
+window.addEventListener('load', () => {
+   const initialContent = document.querySelector('[data-content].main-active')
+   requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+         initialContent.classList.add('show')
+      })
+   })
+})

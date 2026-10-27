@@ -1,0 +1,535 @@
+/*=============== GOOGLE FONTS - Insert link for typography ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(90, 82%, 68%);
+  --first-color-alt: hsl(90, 78%, 64%);
+  --title-color: hsl(0, 0%, 4%);
+  --black-color: hsl(227, 25%, 11%);
+  --body-color: hsl(260, 9%, 94%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Montserrat", sans-serif;
+  --biggest-font-size: 3rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media (width >= 1150px) {
+  :root {
+    --biggest-font-size: 4.5rem;
+    --h1-font-size: 2rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body,
+input,
+button {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+body {
+  background-color: var(--body-color);
+  color: var(--title-color);
+}
+
+input,
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  width: min(100% - 2rem, 960px);
+  margin-inline: auto;
+}
+
+/* Area konten juga dibatasi & di-center, container di dalamnya tidak perlu lagi */
+.main__area {
+  width: min(100% - 2rem, 960px);
+  margin-inline: auto;
+}
+
+.main__area .container {
+  width: auto;
+  margin-inline: 0;
+}
+
+.main__group .section {
+  padding-inline: 0;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 2rem;
+}
+
+.section__title {
+  width: max-content;
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-medium);
+  margin-bottom: 1.25rem;
+  padding: 0.25rem 1rem 0.25rem;
+  background-color: var(--first-color);
+  color: var(--title-color);
+}
+
+.main {
+  overflow: hidden;
+}
+
+/*=============== SHOW & HIDE SECTIONS ===============*/
+.main__area [data-content] {
+  display: none;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* FIX: main-active -> main--active, plus .main__area biar specificity menang */
+.main__area .main--active[data-content] {
+  display: grid;
+}
+
+.main__area .main--active[data-content].show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Active button */
+.profile__button.main--active {
+  background-color: var(--first-color);
+  transition: background-color 0.3s ease;
+}
+
+/*============ PROFILE ============*/
+.profile__container {
+  padding-top: 1.5rem;
+}
+
+.profile__image {
+  width: 240px;
+  height: 340px;
+  border: 3px dashed var(--black-color);
+  transform: rotate(5deg);
+  margin: 0 auto 2rem;
+  display: grid;
+}
+
+.profile__img {
+  width: 200px;
+  transform: translateY(0.5rem) rotate(-5deg);
+  justify-self: center;
+  align-self: flex-end;
+}
+
+.profile__greeting {
+  text-align: center;
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-regular);
+}
+
+.profile__name {
+  text-align: center;
+  font-size: var(--biggest-font-size);
+}
+
+.profile__buttons {
+  display: flex;
+  column-gap: 0.5rem;
+  justify-self: center;
+  width: max-content;
+  margin-inline: auto;
+  margin-block: 1rem 3rem;
+  border: 1px solid var(--black-color);
+  box-shadow: 0 4px 0 var(--black-color);
+  border-radius: 4rem;
+  padding: 0.25rem;
+}
+
+.profile__button {
+  background-color: var(--body-color);
+  color: var(--title-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4rem;
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+.profile__button:hover {
+  background-color: #a8f04a;
+}
+
+/*============ MAIN GROUP (INFORMATION) ============*/
+.main__group {
+  row-gap: 1.5rem;
+}
+
+/*============ SKILLS ============*/
+.skills__list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1.25rem;
+}
+
+.skills__list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.skills__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 7px;
+  height: 7px;
+  background-color: var(--first-color);
+  border-radius: 2px;
+}
+
+/*============ TOOLS ============*/
+.tools__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.tools__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  cursor: default;
+  transition: transform 0.3s ease;
+}
+
+.tools__item:hover {
+  transform: translateY(-4px);
+}
+
+.tools__img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.tools__name {
+  font-size: var(--small-font-size);
+}
+
+.tools__title {
+  display: inline-block;
+  background-color: var(--first-color);
+  color: var(--title-color);
+  padding: 0.25rem 0.75rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  font-weight: var(--font-medium);
+}
+
+.tools.section {
+  padding-left: 1.25rem;
+}
+
+/*============ EXPERIENCE ============*/
+.experience__content {
+  display: grid;
+  row-gap: 2rem;
+}
+
+.experience__titles {
+  display: grid;
+  row-gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.experience__titles :is(p, h3) {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+}
+
+.experience__list {
+  list-style: initial;
+  padding-left: 2rem;
+}
+
+/*============ EDUCATION ============*/
+.education__title {
+  display: inline-block;
+  background-color: var(--first-color);
+  color: var(--title-color);
+  padding: 0.25rem 0.75rem;
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 1rem;
+}
+
+.education.section {
+  padding-inline: 1.25rem;
+}
+
+.education__list {
+  display: grid;
+  row-gap: 1.5rem;
+}
+
+.education__item {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.education__img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.education__info {
+  display: grid;
+  row-gap: 0.25rem;
+}
+
+.education__info :is(p, h3) {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  margin: 0;
+}
+
+/*============ PROJECTS ============*/
+.projects__link {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.projects__img {
+  transition: transform 0.4s;
+}
+
+.projects__link:hover .projects__img {
+  transform: scale(1.1);
+}
+
+.projects__name {
+  font-size: var(--normal-font-size);
+  margin-bottom: 0.5rem;
+}
+
+/*============ FOOTER ============*/
+.footer__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding-block: 2rem;
+}
+
+.footer__link {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  max-width: 100%;
+  color: var(--title-color);
+  transition: transform 0.4s;
+}
+
+.footer__link i {
+  font-size: 1.5rem;
+}
+
+.footer__link span {
+  font-weight: var(--font-medium);
+}
+
+.footer__link:hover {
+  transform: translateY(-0.5rem);
+}
+
+/* Mobile */
+@media screen and (max-width: 576px) {
+  .footer__container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .footer__link {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+/*============ BREAKPOINTS ============*/
+/* Tablet & desktop: tampilan ala resume */
+@media screen and (min-width: 768px) {
+  :root {
+    --biggest-font-size: 3rem;
+  }
+
+  /*----- Profile: teks kiri, foto kanan -----*/
+  .profile__container {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    column-gap: 2rem;
+    padding-top: 2rem;
+  }
+
+  .profile__data {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .profile__image {
+    grid-column: 2;
+    grid-row: 1;
+    width: 190px;
+    height: 270px;
+    margin: 0;
+  }
+
+  .profile__img {
+    width: 160px;
+  }
+
+  .profile__greeting,
+  .profile__name {
+    text-align: left;
+  }
+
+  .profile__buttons {
+    margin-inline: 0;
+    margin-block: 1.25rem 2.5rem;
+  }
+
+.profile__description {
+    max-width: 34rem;
+    line-height: 1.6;
+    text-align: justify;
+}
+  /*----- Information: 2 kolom -----*/
+  .main__area .main--active.main__group[data-content] {
+    grid-template-columns: 0.9fr 1.5fr;
+    column-gap: 0;
+    align-items: stretch;
+  }
+
+  /* Garis putus-putus pemisah antar kolom */
+  .main__left {
+    border-right: 2px dashed var(--black-color);
+    padding-right: 1.5rem;
+  }
+
+  .main__right {
+    padding-left: 1.5rem;
+  }
+
+  /*----- Experience: tanggal kiri, judul kanan -----*/
+  .experience__titles {
+    grid-template-columns: 7rem 1fr;
+    column-gap: 1rem;
+    row-gap: 0.75rem;
+  }
+
+  .experience__titles > p {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .experience__titles > h3 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .experience__list {
+    grid-column: 2;
+    grid-row: 2;
+    padding-left: 1.25rem;
+  }
+
+  /*----- Projects: 2 kolom -----*/
+  .projects__content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /*----- Footer: tersebar rata -----*/
+  .footer__container {
+    justify-content: space-between;
+  }
+}
+
+.experience__list {
+    padding-left: 1.5rem;
+}
+
+.experience__list li {
+    text-align: justify;
+    line-height: 1.5;
+    margin-bottom: 0.25rem;
+}
